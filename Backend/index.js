@@ -1,4 +1,3 @@
-
 const express = require("express");
 require("dotenv").config();
 const Routes = require("./routes/productRoutes");
@@ -11,16 +10,17 @@ app.use(
         origin: "*",
     })
 );
-// Middleware
+// Middleware for post calls 
 app.use(express.json());
 
+//Routes 
 app.use("/api/v1", Routes);
 
-// CORS Configuration
+// Listening to ports
 app.listen(PORT, () => {
     console.log(`THE SERVER IS UP AND RUNNING AT PORT ${PORT}`);
 });
-
+//For checking the port
 app.get("*", (req, res) => {
     res.send(`<h1>Backend is Running and this is '/' Route</h1>`);
 });
