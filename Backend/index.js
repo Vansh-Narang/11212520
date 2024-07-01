@@ -1,14 +1,26 @@
-const express = require('express');
+
+const express = require("express");
+require("dotenv").config();
+const Routes = require("./routes/productRoutes");
 const app = express();
-const PORT = 3000;
-const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzE5ODE0MDM5LCJpYXQiOjE3MTk4MTM3MzksImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjRlZTlmNTBmLTVlZWQtNDM0MS1hYTdhLTBhY2NmODg4NjY5YiIsInN1YiI6InZhbnNobmFyYW5nNDk5MDZAZ21haWwuY29tIn0sImNvbXBhbnlOYW1lIjoiZ29NYXJ0IiwiY2xpZW50SUQiOiI0ZWU5ZjUwZi01ZWVkLTQzNDEtYWE3YS0wYWNjZjg4ODY2OWIiLCJjbGllbnRTZWNyZXQiOiJTQXJRYUtVRGpIdExKTFlhIiwib3duZXJOYW1lIjoidmFuc2giLCJvd25lckVtYWlsIjoidmFuc2huYXJhbmc0OTkwNkBnbWFpbC5jb20iLCJyb2xsTm8iOiIxMTIxMjUyMCJ9.HdA0BTZ-H9_cnGxUFtnCAHfZSwhdl4DoQe6J67HEdUc';
-app.get("/", (req, res) => {
-    res.send("Welcome")
-})
+var cors = require("cors");
+const PORT = process.env.PORT || 3000;
 
-app.post("/", (req, res) => {
+app.use(
+    cors({
+        origin: "*",
+    })
+);
+// Middleware
+app.use(express.json());
 
-})
+app.use("/api/v1", Routes);
+
+// CORS Configuration
 app.listen(PORT, () => {
-    console.log("Server listening on port")
-})
+    console.log(`THE SERVER IS UP AND RUNNING AT PORT ${PORT}`);
+});
+
+app.get("*", (req, res) => {
+    res.send(`<h1>Backend is Running and this is '/' Route</h1>`);
+});
